@@ -1,6 +1,9 @@
 package com.example.demo.model;
-
+import java.security.MessageDigest;
+import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.*;
+import com.example.demo.model.TaskModel;
 
 @Entity(name = "user")
 public class UserModel {
@@ -14,6 +17,9 @@ public class UserModel {
 
     @Column(nullable = false, length = 15)
     public String surname;
+
+    @OneToMany(mappedBy = "owner")
+    private List<TaskModel> tasks;
 
     @Column(nullable = false, length = 25)
     public String username;
@@ -42,7 +48,15 @@ public class UserModel {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws Exception {
+        String salt = "TYHbSD1!@%";
+        this.password = salt + this.getHashMd5(password);
     }
+
+    public static String getHashMd5(String value) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        BigInteger hash = new BigInteger(1, md.digest(value.getBytes()));
+        return hash.toString(16);
+    }
+
 }
