@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
-public class ErrorCrontroller {
-    public String[] error;
+public class ErrorController {
+    public String message;
 
-    public void ErrorController(String[] error) {
-        this.error = error;
+    public ErrorController(String message) {
+        this.message = message;
     }
 
 }

@@ -1,16 +1,13 @@
 package com.example.demo.model;
-import java.security.MessageDigest;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.*;
-import com.example.demo.model.TaskModel;
 
 @Entity(name = "user")
-public class UserModel {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, length = 10)
     public String name;
@@ -18,23 +15,22 @@ public class UserModel {
     @Column(nullable = false, length = 15)
     public String surname;
 
-    @OneToMany(mappedBy = "owner")
-    private List<TaskModel> tasks;
-
     @Column(nullable = false, length = 25)
     public String username;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 240)
     public String password;
 
-    public Integer getId() {
-        return id;
+    @OneToMany(mappedBy = "owner")
+    private List<Task> tasks;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPassword(String password) throws Exception {
+        this.password = password;
     }
-
 
     public String getUsername() {
         return username;
@@ -43,20 +39,4 @@ public class UserModel {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) throws Exception {
-        String salt = "TYHbSD1!@%";
-        this.password = salt + this.getHashMd5(password);
-    }
-
-    public static String getHashMd5(String value) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        BigInteger hash = new BigInteger(1, md.digest(value.getBytes()));
-        return hash.toString(16);
-    }
-
 }
