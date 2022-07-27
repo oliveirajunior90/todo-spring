@@ -19,8 +19,8 @@ import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    protected int EXPIRATION_TOKEN = 600_000;
-    protected String PASSWORD_TOKEN = "463408a1-54c9-4307-bb1c-6cced559f5a7";
+    public static final int EXPIRATION_TOKEN = 600_000;
+    public static final String PASSWORD_TOKEN = "463408a1-54c9-4307-bb1c-6cced559f5a7";
 
     private final CustomAuthenticationManager customAuthenticationManager;
 
@@ -52,8 +52,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
-
-       //UserDetailData userData = (UserDetailData) authResult.getPrincipal();
         String username = (String) authResult.getPrincipal();
 
         String token = JWT.create()

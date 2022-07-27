@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.auth.CustomAuthenticationManager;
 import com.example.demo.auth.JWTAuthenticationFilter;
+import com.example.demo.auth.JWTAuthorizationFilter;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +48,7 @@ public class SecurityConfiguration {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(customAuthenticationManager))
+                .addFilter(new JWTAuthorizationFilter(customAuthenticationManager))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }
