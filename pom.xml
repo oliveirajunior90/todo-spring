@@ -65,6 +65,11 @@
 			<artifactId>java-jwt</artifactId>
 			<version>3.16.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<version>2.3-groovy-3.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
